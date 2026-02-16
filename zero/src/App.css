@@ -1,0 +1,215 @@
+/* Variáveis de Cor - DNA da Zero */
+:root {
+  --preto-fundo: #0a0a0a;
+  --preto-card: #141414;
+  --dourado-principal: #d4af37;
+  --dourado-brilho: #f9d976;
+  --texto-branco: #ffffff;
+  --texto-cinza: #a0a0a0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--preto-fundo);
+  color: var(--texto-branco);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Card Principal */
+.card-zero {
+  background-color: var(--preto-card);
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.logo-zero {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -1.5px;
+}
+
+.logo-zero span {
+  color: var(--dourado-principal);
+}
+
+.subtitulo {
+  color: var(--texto-cinza);
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+/* Formulários */
+.form-zero {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-zero {
+  width: 100%;
+  padding: 14px;
+  background: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-zero:focus {
+  border-color: var(--dourado-principal);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* Botão Premium */
+.btn-zero {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(45deg, var(--dourado-principal), var(--dourado-brilho));
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+.btn-zero:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+.link-troca {
+  margin-top: 25px;
+  color: var(--texto-cinza);
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-troca span {
+  color: var(--dourado-principal);
+  font-weight: bold;
+}
+/* Estilos da Welcome */
+.indicadores {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.dot.active {
+  background: var(--dourado-principal);
+  width: 20px;
+  border-radius: 10px;
+}
+
+/* Ajustes para o Swiper Premium */
+/* Ajustes para o Swiper Premium */
+.welcome-swiper-container {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.meu-swiper {
+  width: 100%;
+  padding-bottom: 40px !important; /* Espaço para as bolinhas */
+}
+
+.slide-content {
+  padding: 10px;
+}
+
+/* Customizando as bolinhas do Swiper para o Dourado da Zero */
+.swiper-pagination-bullet {
+  background: #333 !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--dourado-principal) !important;
+  width: 20px !important;
+  border-radius: 10px !important;
+}
+
+.logo-zero span {
+    display: block; /* Garante que o título não quebre feio no slide */
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: #0a0a0a; /* Preto profundo */
+  border-top: 1px solid #d4af37; /* Linha dourada fina */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 1000;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #888;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-item.active {
+  color: #d4af37; /* Dourado quando ativo */
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.label {
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}

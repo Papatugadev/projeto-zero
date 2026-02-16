@@ -1,0 +1,91 @@
+/* Garante que a página cubra tudo sem margens */
+.auth-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #050505;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+/* O card vira a própria tela */
+.card-zero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 30px; /* Respiro nas laterais e topo */
+}
+
+/* Título ZERO no topo */
+.logo-zero {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-zero span {
+  color: #d4af37;
+}
+
+/* Formulário esticado */
+.form-zero {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Inputs ocupando a largura total */
+.input-zero {
+  width: 100%;
+  background: #111;
+  border: 1px solid #222;
+  padding: 20px;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-zero:focus {
+  border-color: #d4af37;
+}
+
+/* Botão preenchendo a linha */
+.btn-zero {
+  width: 100%;
+  background: #d4af37;
+  color: #000;
+  border: none;
+  padding: 20px;
+  border-radius: 15px;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* Link de troca no rodapé absoluto da tela */
+.link-troca {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: auto; /* Empurra para o fundo */
+  padding-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.link-troca span {
+  color: #d4af37;
+  font-weight: bold;
+}
