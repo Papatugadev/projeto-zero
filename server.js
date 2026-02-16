@@ -24,14 +24,16 @@ app.use('/molduras', express.static(path.join(__dirname, 'public/molduras')));
 // Usei o seu link SRV que é o correto para o Atlas
 // Substitua o DB_URL antigo por este (com a senha nova zero2026)
 // Este link evita o erro de SRV timeout que o Render costuma dar
-const DB_URL = "mongodb://jorge_user:zero2026@cluster0-shard-00-00.96jvub5.mongodb.net:27017,cluster0-shard-00-01.96jvub5.mongodb.net:27017,cluster0-shard-00-02.96jvub5.mongodb.net:27017/zero?ssl=true&replicaSet=atlas-96jvub-shard-0&authSource=admin&retryWrites=true&w=majority";
+// --- 2. CONEXÃO COM O BANCO (VERSÃO FINAL) ---
+// AQUI ESTÁ O ERRO: O usuário correto é "jorge", não "jorge_user"
+const DB_URL = "mongodb+srv://jorge:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
 
-mongoose.connect(DB_URL, {
-  serverSelectionTimeoutMS: 20000, // Dá 20 segundos para o banco responder
-  family: 4 // Força o uso de IPv4 (O Render às vezes se perde no IPv6)
-})
-.then(() => console.log("✅ AGORA FOI! Banco Conectado."))
-.catch(err => console.error("❌ Erro:", err.message));
+// Mantenha essa linha que eu te passei antes, ela ajuda muito:
+mongoose.set('bufferCommands', false);
+
+mongoose.connect(DB_URL)
+  .then(() => console.log("✅ AGORA O ZERO CONECTOU!"))
+  .catch(err => console.error("❌ Erro:", err.message));
 // --- 3. ROTAS DA LOJA (Mantidas conforme seu original) ---
 
 app.get('/loja/setup', async (req, res) => {
