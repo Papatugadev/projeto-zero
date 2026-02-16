@@ -21,7 +21,7 @@ const Moldura = mongoose.models.Moldura || mongoose.model('Moldura', MolduraSche
 app.use('/molduras', express.static(path.join(__dirname, 'public/molduras')));
 
 // --- 2. CONEXÃO COM O BANCO ---
-const DB_URL = "mongodb+srv://jorge:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
+const DB_URL = "mongodb+srv://jorge:zero2026@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
 
 // Variável para monitorar a conexão
 let isConnected = false;
