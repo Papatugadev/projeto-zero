@@ -22,16 +22,14 @@ app.use('/molduras', express.static(path.join(__dirname, 'public/molduras')));
 
 // --- 2. CONEXÃO COM O BANCO ---
 // Usei o seu link SRV que é o correto para o Atlas
-const DB_URL = "mongodb+srv://jorge_user:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority&appName=Cluster0";
+// Substitua o DB_URL antigo por este (com a senha nova zero2026)
+const DB_URL = "mongodb+srv://jorge_user:zero2026@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
 
 mongoose.connect(DB_URL, {
-  serverSelectionTimeoutMS: 10000, // Aumentei para 10s para dar tempo ao Render
+  serverSelectionTimeoutMS: 15000, // Aumentei para 15 segundos
 })
-.then(() => console.log("✅ Zero: Banco de Dados Conectado com Sucesso!"))
-.catch(err => {
-  console.error("❌ Erro de conexão MongoDB:", err.message);
-});
-
+.then(() => console.log("✅ Zero: BANCO CONECTADO!"))
+.catch(err => console.error("❌ Erro ao conectar:", err.message));
 // --- 3. ROTAS DA LOJA (Mantidas conforme seu original) ---
 
 app.get('/loja/setup', async (req, res) => {
