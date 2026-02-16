@@ -11,7 +11,7 @@ function Perfil({ user, onLogout }) {
   const [menuConfigAberto, setMenuConfigAberto] = useState(false);
   const [editDrawerAberto, setEditDrawerAberto] = useState(false);
   const [inventarioAberto, setInventarioAberto] = useState(null);
-  
+  const [fotoPerfil, setFotoPerfil] = useState(null); // ou o valor inicial que você definiu
   // ESTADO DA LOJA (Vem do Banco de Dados)
   const [moldurasBanco, setMoldurasBanco] = useState([]);
 
