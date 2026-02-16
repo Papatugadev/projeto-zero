@@ -21,15 +21,14 @@ app.use('/molduras', express.static(path.join(__dirname, 'public/molduras')));
 
 // --- 2. CONEXÃO COM O BANCO ---
 // Tente usar este link simplificado. Substitua a senha se 'mano2024' não for a correta.
-const DB_URL = "mongodb+srv://jorge_user:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
+// Substitua a linha do DB_URL por esta:
+const DB_URL = "mongodb+srv://jorge_user:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority&appName=Cluster0";
 
-mongoose.connect(DB_URL)
-  .then(() => console.log("🚀 Zero Log: O Banco de Dados agora está ONLINE na Nuvem!"))
-  .catch((err) => {
-    console.log("❌ Erro ao conectar no MongoDB:");
-    console.error(err);
-  });
-
+mongoose.connect(DB_URL, {
+  serverSelectionTimeoutMS: 5000 // Se não conectar em 5s, ele avisa
+})
+.then(() => console.log("✅ Zero: Banco de Dados Conectado!"))
+.catch(err => console.error("❌ Erro fatal de conexão:", err));
 // --- 3. ROTAS DA LOJA ---
 
 app.get('/loja/setup', async (req, res) => {
