@@ -21,7 +21,7 @@ app.use('/molduras', express.static(path.join(__dirname, 'public/molduras')));
 
 // --- 2. CONEXÃO COM O BANCO ---
 // Tente usar este link simplificado. Substitua a senha se 'mano2024' não for a correta.
-const DB_URL = process.env.MONGODB_URI || "mongodb+srv://jorge_user:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
+const DB_URL = "mongodb+srv://jorge_user:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
 
 mongoose.connect(DB_URL)
   .then(() => console.log("🚀 Zero Log: O Banco de Dados agora está ONLINE na Nuvem!"))
