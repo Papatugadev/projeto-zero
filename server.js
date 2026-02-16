@@ -17,19 +17,22 @@ const MolduraSchema = new mongoose.Schema({
 });
 const Moldura = mongoose.models.Moldura || mongoose.model('Moldura', MolduraSchema);
 
+// Servir arquivos estáticos (molduras)
 app.use('/molduras', express.static(path.join(__dirname, 'public/molduras')));
 
 // --- 2. CONEXÃO COM O BANCO ---
-// Tente usar este link simplificado. Substitua a senha se 'mano2024' não for a correta.
-// Substitua a linha do DB_URL por esta:
+// Usei o seu link SRV que é o correto para o Atlas
 const DB_URL = "mongodb+srv://jorge_user:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose.connect(DB_URL, {
-  serverSelectionTimeoutMS: 5000 // Se não conectar em 5s, ele avisa
+  serverSelectionTimeoutMS: 10000, // Aumentei para 10s para dar tempo ao Render
 })
-.then(() => console.log("✅ Zero: Banco de Dados Conectado!"))
-.catch(err => console.error("❌ Erro fatal de conexão:", err));
-// --- 3. ROTAS DA LOJA ---
+.then(() => console.log("✅ Zero: Banco de Dados Conectado com Sucesso!"))
+.catch(err => {
+  console.error("❌ Erro de conexão MongoDB:", err.message);
+});
+
+// --- 3. ROTAS DA LOJA (Mantidas conforme seu original) ---
 
 app.get('/loja/setup', async (req, res) => {
   try {
@@ -72,10 +75,11 @@ app.post('/loja/comprar/:id', async (req, res) => {
 // --- 4. OUTRAS ROTAS ---
 app.get('/', (req, res) => res.send("API Plataforma Zero Rodando..."));
 
-// Verifique se este arquivo de rotas existe, senão comente a linha abaixo
-// app.use('/auth', require('./routes/authRoutes'));
+// Descomente a linha abaixo apenas se a pasta 'routes' e o arquivo 'authRoutes.js' existirem
+ app.use('/auth', require('./routes/authRoutes'));
 
+// O Render define a porta automaticamente, por isso usamos process.env.PORT
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Servidor do Zero rodando na porta ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Servidor do Zero online na porta ${PORT}`);
 });
