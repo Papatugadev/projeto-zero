@@ -21,22 +21,33 @@ const Moldura = mongoose.models.Moldura || mongoose.model('Moldura', MolduraSche
 app.use('/molduras', express.static(path.join(__dirname, 'public/molduras')));
 
 // --- 2. CONEXÃO COM O BANCO ---
-// Usei o seu link SRV que é o correto para o Atlas
-// Substitua o DB_URL antigo por este (com a senha nova zero2026)
-// Este link evita o erro de SRV timeout que o Render costuma dar
-// --- 2. CONEXÃO COM O BANCO (VERSÃO FINAL) ---
-// AQUI ESTÁ O ERRO: O usuário correto é "jorge", não "jorge_user"
 const DB_URL = "mongodb+srv://jorge:mano2024@cluster0.96jvub5.mongodb.net/zero?retryWrites=true&w=majority";
 
-// Mantenha essa linha que eu te passei antes, ela ajuda muito:
+// Variável para monitorar a conexão
+let isConnected = false;
+
+// Desligamos o buffer para evitar que comandos fiquem presos se a rede oscilar
 mongoose.set('bufferCommands', false);
 
-mongoose.connect(DB_URL)
-  .then(() => console.log("✅ AGORA O ZERO CONECTOU!"))
-  .catch(err => console.error("❌ Erro:", err.message));
-// --- 3. ROTAS DA LOJA (Mantidas conforme seu original) ---
+mongoose.connect(DB_URL, {
+  serverSelectionTimeoutMS: 15000
+})
+.then(() => {
+  isConnected = true;
+  console.log("✅ Zero: Banco de Dados Conectado com Sucesso!");
+})
+.catch(err => {
+  console.error("❌ Erro de conexão MongoDB:", err.message);
+});
+
+// --- 3. ROTAS DA LOJA ---
 
 app.get('/loja/setup', async (req, res) => {
+  // Verificação de segurança: impede o erro de "buffering timed out"
+  if (!isConnected) {
+    return res.status(503).send("O servidor ainda está estabelecendo conexão com o banco. Aguarde 5 segundos e atualize a página.");
+  }
+
   try {
     const moldurasIniciais = [
       { nome: "mush", preco: 500, estoque: 3, arquivoPng: "mush.png" },
@@ -53,6 +64,7 @@ app.get('/loja/setup', async (req, res) => {
 
 app.get('/loja/molduras', async (req, res) => {
   try {
+    if (!isConnected) throw new Error("Banco desconectado");
     const molduras = await Moldura.find();
     res.json(molduras);
   } catch (err) {
@@ -62,6 +74,7 @@ app.get('/loja/molduras', async (req, res) => {
 
 app.post('/loja/comprar/:id', async (req, res) => {
   try {
+    if (!isConnected) throw new Error("Banco desconectado");
     const moldura = await Moldura.findById(req.params.id);
     if (!moldura || moldura.estoque <= 0) {
       return res.status(400).json({ success: false, message: "Item esgotado ou não encontrado" });
@@ -77,10 +90,13 @@ app.post('/loja/comprar/:id', async (req, res) => {
 // --- 4. OUTRAS ROTAS ---
 app.get('/', (req, res) => res.send("API Plataforma Zero Rodando..."));
 
-// Descomente a linha abaixo apenas se a pasta 'routes' e o arquivo 'authRoutes.js' existirem
- app.use('/auth', require('./routes/authRoutes'));
+// Rota de autenticação (certifique-se que o arquivo existe em ./routes/authRoutes.js)
+try {
+  app.use('/auth', require('./routes/authRoutes'));
+} catch (e) {
+  console.log("⚠️ Aviso: Rotas de auth não carregadas. Verifique se o arquivo existe.");
+}
 
-// O Render define a porta automaticamente, por isso usamos process.env.PORT
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor do Zero online na porta ${PORT}`);
